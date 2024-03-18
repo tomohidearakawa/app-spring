@@ -8,6 +8,15 @@
 <body class="container">
     <h1 class="display-4 mb-4">Hello page</h1>
     <p th:text="${msg}"></p>
-    <p class="h6 alert alert-primary" th:text="${content}"></p>
+    <div class="h6 alert alert-primary">
+        <form method="post" action=".">
+            <div class="input-group">
+                <input type="text" class="form-control me-1" name="text1" th:value="${value}" />
+                <span class="input-group-btn">
+                    <input type="submit" class="btn btn-primary px-4" value="Click" />
+                </span>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
