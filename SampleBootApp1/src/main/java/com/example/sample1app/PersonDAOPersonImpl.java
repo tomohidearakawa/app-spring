@@ -40,4 +40,14 @@ public class PersonDAOPersonImpl implements PersonDAO<Person> {
         return (List<Person>) entityManager.createQuery("from Person where name = '" + name + "'").getResultList();
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Person> find(String fstr) {
+        List<Person> list = null;
+        String qstr = "from Person where id = :fstr";
+        Query query = entityManager.createQuery(qstr).setParameter("fstr", Long.parseLong(fstr));
+        list = query.getResultList();
+        return list;
+    }
+
 }
