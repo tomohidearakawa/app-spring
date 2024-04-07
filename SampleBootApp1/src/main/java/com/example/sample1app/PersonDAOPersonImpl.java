@@ -44,10 +44,29 @@ public class PersonDAOPersonImpl implements PersonDAO<Person> {
     @SuppressWarnings("unchecked")
     public List<Person> find(String fstr) {
         List<Person> list = null;
-        String qstr = "from Person where id = :fstr";
-        Query query = entityManager.createQuery(qstr).setParameter("fstr", Long.parseLong(fstr));
+        String qstr = "from Person where id = :fid or name like :fname or mail like :fmail";
+        Long fid = 0L;
+        try {
+            fid = Long.parseLong(fstr);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        Query query = entityManager.createQuery(qstr)
+                .setParameter("fid", fid)
+                .setParameter("fname", "%" + fstr + "%")
+                .setParameter("fmail", fstr + "%@%");
         list = query.getResultList();
         return list;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Person> findByAge(int min, int max) {
+        return (List<Person>) entityManager
+                .createNamedQuery("findByAge")
+                .setParameter("max", max)
+                .setParameter("min", min)
+                .getResultList();
     }
 
 }
