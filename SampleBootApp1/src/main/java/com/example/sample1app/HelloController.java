@@ -62,10 +62,13 @@ public class HelloController {
         if (param == "") {
             mav = new ModelAndView("redirect:/find");
         } else {
-            mav.addObject("title", "Find name result");
+            String[] params = param.split(",");
+            mav.addObject("title", "Find result");
             mav.addObject("msg", "「" + param + "」の検索結果");
             mav.addObject("value", param);
-            List<Person> list = dao.findByName(param);
+            List<Person> list = dao.findByAge(
+                    Integer.parseInt(params[0]),
+                    Integer.parseInt(params[1]));
             mav.addObject("data", list);
         }
         return mav;

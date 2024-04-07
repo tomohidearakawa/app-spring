@@ -6,6 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.NamedQuery;
+
+@NamedQuery(name = "findByAge", query = "from Person where age >= :min and age < :max")
 
 @Entity
 @Table(name = "people")
