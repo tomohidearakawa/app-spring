@@ -36,24 +36,6 @@ public class HelloController {
         return mav;
     }
 
-    // @RequestMapping(value = "/find", method = RequestMethod.POST)
-    // public ModelAndView search(HttpServletRequest request,
-    // ModelAndView mav) {
-    // mav.setViewName("find");
-    // String param = request.getParameter("find_str");
-    // if (param == "") {
-    // mav = new ModelAndView("redirect:/find");
-    // } else {
-    // mav.addObject("title", "Find result");
-    // mav.addObject("msg", "「" + param + "」の検索結果");
-    // mav.addObject("value", param);
-    // Person data = dao.findById(Integer.parseInt(param));
-    // Person[] list = new Person[] { data };
-    // mav.addObject("data", list);
-    // }
-    // return mav;
-    // }
-
     @RequestMapping(value = "/find", method = RequestMethod.POST)
     public ModelAndView search(HttpServletRequest request,
             ModelAndView mav) {
