@@ -149,7 +149,7 @@ public class HelloController {
         return new ModelAndView("redirect:/");
     }
 
-    @RequestMapping(value = "/page/{page}", method = RequestMapping.GET)
+    @RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
     public ModelAndView index(ModelAndView mav,
             @PathVariable int page) {
         mav.setViewName("index");
