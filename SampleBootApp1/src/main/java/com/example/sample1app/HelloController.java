@@ -36,21 +36,34 @@ public class HelloController {
         return mav;
     }
 
+    // @RequestMapping(value = "/find", method = RequestMethod.POST)
+    // public ModelAndView search(HttpServletRequest request,
+    // ModelAndView mav) {
+    // mav.setViewName("find");
+    // String param = request.getParameter("find_str");
+    // if (param == "") {
+    // mav = new ModelAndView("redirect:/find");
+    // } else {
+    // String[] params = param.split(",");
+    // mav.addObject("title", "Find result");
+    // mav.addObject("msg", "「" + param + "」の検索結果");
+    // mav.addObject("value", param);
+    // List<Person> list = dao.findByAge(
+    // Integer.parseInt(params[0]),
+    // Integer.parseInt(params[1]));
+    // mav.addObject("data", list);
+    // }
+    // return mav;
+    // }
+
     @RequestMapping(value = "/find", method = RequestMethod.POST)
-    public ModelAndView search(HttpServletRequest request,
-            ModelAndView mav) {
+    public ModelAndView serach(HttpServletRequest request, ModelAndView mav) {
         mav.setViewName("find");
         String param = request.getParameter("find_str");
         if (param == "") {
             mav = new ModelAndView("redirect:/find");
         } else {
-            String[] params = param.split(",");
-            mav.addObject("title", "Find result");
-            mav.addObject("msg", "「" + param + "」の検索結果");
-            mav.addObject("value", param);
-            List<Person> list = dao.findByAge(
-                    Integer.parseInt(params[0]),
-                    Integer.parseInt(params[1]));
+            List<Person> list = dao.find(param);
             mav.addObject("data", list);
         }
         return mav;
@@ -134,6 +147,18 @@ public class HelloController {
             ModelAndView mav) {
         repository.deleteById(id);
         return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value = "/page/{page}", method = RequestMapping.GET)
+    public ModelAndView index(ModelAndView mav,
+            @PathVariable int page) {
+        mav.setViewName("index");
+        mav.addObject("title", "Hello Page");
+        mav.addObject("msg", "this is sample data.");
+        int num = 2;
+        Iterable<Person> list = dao.getPage(page, num);
+        mav.addObject("data", list);
+        return mav;
     }
 
 }
